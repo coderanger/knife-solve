@@ -4,6 +4,15 @@ knife-solve
 knife-solve is a little knife plugin to see the chef-server version solver
 solution for a given set of cookbooks.
 
+```bash
+$ knife solve -E production apache2
+Solving [apache2] in environment production
+apache2 1.9.6
+iptables 0.12.0
+logrotate 1.5.0
+pacman 1.1.1
+```
+
 Installation
 ------------
 
@@ -19,7 +28,7 @@ Usage
 To solve a simple list of cookbooks:
 
 ```
-knife solve -E production apache2 mysql
+knife solve apache2 mysql
 ```
 
 You can also solve a normal run list:

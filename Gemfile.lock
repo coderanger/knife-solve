@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-solve (1.0)
+    knife-solve (1.0.pre.rc1)
       chef
 
 GEM
