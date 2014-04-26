@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.has_rdoc = true
   s.extra_rdoc_files = ['LICENSE']
-  s.summary = 'Universal knife verbs that work with your Chef repository'
+  s.summary = 'A knife plugin to display cookbook version solutions.'
   s.description = s.summary
   s.author = 'Noah Kantrowitz'
   s.email = 'noah@coderanger.net'
