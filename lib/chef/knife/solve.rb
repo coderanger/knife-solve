@@ -53,7 +53,7 @@ class Chef
           # I don't think this is strictly speaking required, but do it anyway
           arg.split('@').first.split('::').first
         end
-        ui.info("Solving [#{cookbooks.join(', ')}] in environment #{environment}")
+        ui.info("Solving [#{cookbooks.join(', ')}] in #{environment} environment")
         solution = solve_cookbooks(environment, cookbooks)
         solution.sort.each do |name, cb|
           msg("#{name} #{cb.version}")

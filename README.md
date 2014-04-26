@@ -6,7 +6,7 @@ solution for a given set of cookbooks.
 
 ```bash
 $ knife solve -E production apache2
-Solving [apache2] in environment production
+Solving [apache2] in production environment
 apache2 1.9.6
 iptables 0.12.0
 logrotate 1.5.0
