@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+require 'timeout'
 require 'chef/knife'
 require 'chef/run_list/run_list_expansion'
 
@@ -29,6 +30,18 @@ class Chef
         short: '-n',
         long: '--node NAME',
         description: 'Use the run list from a given node'
+
+      option :timeout,
+        short: '-t',
+        long: '--timeout SECONDS',
+        description: 'The number of seconds before a solution times out',
+        proc: ->(value) { Integer(value) }
+
+      option :permute,
+        short: '-p',
+        long: '--permutations SIZE',
+        description: 'Attempts to solve all SIZE length permutations of the run list',
+        proc: ->(value) { Integer(value) }
 
       def run
         environment = config[:environment]
@@ -53,10 +66,16 @@ class Chef
           # I don't think this is strictly speaking required, but do it anyway
           arg.split('@').first.split('::').first
         end
-        ui.info("Solving [#{cookbooks.join(', ')}] in #{environment} environment")
-        solution = solve_cookbooks(environment, cookbooks)
-        solution.sort.each do |name, cb|
-          msg("#{name} #{cb.version}")
+        permutations = config[:permute] ? cookbooks.permutation(config[:permute]) : [cookbooks]
+        permutations.each do |permutation|
+          ui.info("Solving [#{permutation.join(', ')}] in #{environment} environment")
+          begin
+            Timeout.timeout(config[:timeout]) { solve_cookbooks(environment, permutation) }.each do |name, cb|
+              msg("#{name} #{cb.version}")
+            end
+          rescue Timeout::Error
+            ui.info("Solution not found before timeout for [#{permutation.join(', ')}] in #{environment} environment")
+          end
         end
       end
 
