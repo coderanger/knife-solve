@@ -22,6 +22,12 @@ As with all knife plugins, just install the gem:
 gem install knife-solve
 ```
 
+Or if you use ChefDK:
+
+```
+chef gem install knife-solve
+```
+
 Usage
 -----
 
