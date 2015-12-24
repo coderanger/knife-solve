@@ -53,7 +53,7 @@ class Chef
           # I don't think this is strictly speaking required, but do it anyway
           arg.split('@').first.split('::').first
         end
-        ui.debug("Solving [#{cookbooks.join(', ')}] in #{environment} environment")
+        ui.info("Solving [#{cookbooks.join(', ')}] in #{environment} environment") if config[:format] =~ /(text|summary)/
         solution = solve_cookbooks(environment, cookbooks).inject({}) {|h, (name, cb)| h[name] = cb.version; h }
         output(format_for_display(solution))
       end
