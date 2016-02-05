@@ -42,7 +42,10 @@ class Chef
         cookbooks = cookbooks.map do |arg|
           arg = arg.to_s
           if arg.include?('[')
-            run_list = [Chef::RunList::RunListItem.new(arg)]
+	          run_list = []
+            arg.split(',').each do |item|
+            run_list.push(Chef::RunList::RunListItem.new(item))
+          end
             expansion = Chef::RunList::RunListExpansionFromAPI.new(environment, run_list, rest)
             expansion.expand
             expansion.recipes
