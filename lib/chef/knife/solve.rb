@@ -33,7 +33,7 @@ class Chef
 
       def run
         environment = config[:environment]
-        cookbooks = name_args
+        cookbooks = name_args.map {|item| item.split(/[, ]/) }.flatten.each{|item| item.strip! }
         if config[:node]
           node = Chef::Node.load(config[:node])
           environment ||= node.chef_environment
