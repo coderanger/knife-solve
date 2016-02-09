@@ -72,4 +72,14 @@ describe Chef::Knife::Solve do
     let(:argv) { %w{foo,bar} }
     it { expect_post(%w{foo bar}, '_default') }
   end # /context with comma-separated arguments
+
+  context 'with a role and a recipe' do
+    let(:argv) { %w{role[web] recipe[other]} }
+    it { expect_post(%w{httpd python other}, '_default') }
+  end # /context with a role and a recipe
+
+  context 'with a single comma-separated argument' do
+    let(:argv) { ['foo, bar'] }
+    it { expect_post(%w{foo bar}, '_default') }
+  end # /context with a single comma-separated argument'
 end
