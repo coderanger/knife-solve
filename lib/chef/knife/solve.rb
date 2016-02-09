@@ -16,6 +16,7 @@
 
 require 'chef/knife'
 require 'chef/run_list/run_list_expansion'
+require 'chef/run_list/run_list_item'
 
 class Chef
   class Knife
