@@ -17,24 +17,26 @@
 $:.unshift(File.dirname(__FILE__) + '/lib')
 require 'knife-solve/version'
 
-Gem::Specification.new do |s|
-  s.name = 'knife-solve'
-  s.version = KnifeSolve::VERSION
-  s.license = 'Apache 2.0'
-  s.platform = Gem::Platform::RUBY
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['LICENSE']
-  s.summary = 'A knife plugin to display cookbook version solutions.'
-  s.description = s.summary
-  s.author = 'Noah Kantrowitz'
-  s.email = 'noah@coderanger.net'
-  s.homepage = 'https://github.com/coderanger/knife-solve'
+Gem::Specification.new do |spec|
+  spec.name = 'knife-solve'
+  spec.version = KnifeSolve::VERSION
+  spec.authors = ['Noah Kantrowitz']
+  spec.email = %w{noah@coderanger.net}
+  spec.description = 'A knife plugin to display cookbook version solutions.'
+  spec.summary = spec.description
+  spec.homepage = 'https://github.com/coderanger/knife-solve'
+  spec.license = 'Apache 2.0'
 
-  s.add_dependency 'chef'
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rake'
+  spec.files = `git ls-files`.split($/)
+  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = %w{lib}
 
-  s.require_path = 'lib'
-  s.files = %w{LICENSE README.md Rakefile} + Dir.glob('{lib,spec}/**/*')
+  spec.add_dependency 'chef', '>= 11.0'
+
+  spec.add_development_dependency 'rspec', '~> 3.2'
+  spec.add_development_dependency 'rspec-its', '~> 1.2'
+  spec.add_development_dependency 'chefspec', '~> 4.2'
+  spec.add_development_dependency 'fuubar', '~> 2.0'
+  spec.add_development_dependency 'simplecov', '~> 0.9'
 end
-
