@@ -58,7 +58,13 @@ class Chef
         ui.info("Solving [#{cookbooks.join(', ')}] in #{environment} environment")
         solution = solve_cookbooks(environment, cookbooks)
         solution.sort.each do |name, cb|
-          msg("#{name} #{cb.version}")
+          # Newer Chef doesn't auto-inflate the object.
+          version = if cb.is_a?(Hash)
+            cb['version']
+          else
+            cb.version
+          end
+          msg("#{name} #{version}")
         end
       end
 
